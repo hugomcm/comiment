@@ -10,14 +10,30 @@ const buildFunctionalityGroup = curry((fnGroupName, fnGroup) =>
     fn
   ])
 );
+console.log('mdp', module.parent.parent.path);
 
-module.exports = fs
-  .readdirSync(__dirname)
-  .filter(f => `${__dirname}/${f}` !== __filename && f.split('.')[1] === 'js')
-  .reduce(
-    (acm, file) => ({
-      ...acm,
-      ...buildFunctionalityGroup(file.split('.')[0], require(`./${file}`))
-    }),
-    {}
-  );
+module.exports = functionalityLoadingPath =>
+  fs
+    // .readdirSync(__dirname)
+    .readdirSync(functionalityLoadingPath)
+    .filter(
+      f =>
+        // `${__dirname}/${f}` !== __filename &&
+        `${functionalityLoadingPath}/${f}` !== __filename &&
+        f.split('.')[1] === 'js'
+    )
+    .reduce((acm, file) => {
+      // console.log('file', file);
+      // console.log(
+      //   '${functionalityLoadingPath}/${file}',
+      //   `${functionalityLoadingPath}/${file}`
+      // );
+      return {
+        ...acm,
+        // ...buildFunctionalityGroup(file.split('.')[0], require(`./${file}`))
+        ...buildFunctionalityGroup(
+          file.split('.')[0],
+          require(`${functionalityLoadingPath}/${file}`)
+        )
+      };
+    }, {});
