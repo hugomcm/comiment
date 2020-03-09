@@ -12,7 +12,6 @@ const buildInstance = curry((id, functionality, initState = {}) => {
   }
   updateState({ id, ...initState });
 
-  // console.log('functionality', functionality);
   function updateState(newState) {
     // console.log({ oldState: state, newState });
     if (!!newState && newState !== state) {
@@ -21,7 +20,8 @@ const buildInstance = curry((id, functionality, initState = {}) => {
     }
   }
 
-  return objMap(functionality, (fnName, fn) => [
+  // console.log('functionality', functionality);
+  return objMap(functionality, ([fnName, fn]) => [
     fnName,
     (...args) => {
       console.log(`${fnName}(${args})`);

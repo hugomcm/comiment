@@ -34,8 +34,9 @@ immedRef = setImmediate(function chunk() {
 const intrv = 1000;
 const intRef = setInterval(() => {
   const seconds = (Date.now() - start) / intrv;
-  console.log({ seconds, j, 'insts/sec': j / seconds });
+  // console.log({ seconds, j, 'insts/sec': j / seconds });
   if (seconds > testTimeInSecs) {
+    console.log({ seconds, j, 'insts/sec': j / seconds });
     clearInterval(intRef);
     clearImmediate(immedRef);
   }

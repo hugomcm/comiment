@@ -5,7 +5,7 @@ const fs = require('fs');
 
 /************ Generic Functionality Groups Factory *************/
 const buildFunctionalityGroup = curry((fnGroupName, fnGroup) =>
-  objMap(fnGroup, (fnName, fn) => [
+  objMap(fnGroup, ([fnName, fn]) => [
     i.camelize(`${fnName}_${fnGroupName}`, false),
     fn
   ])
@@ -13,7 +13,7 @@ const buildFunctionalityGroup = curry((fnGroupName, fnGroup) =>
 
 module.exports = fs
   .readdirSync(__dirname)
-  .filter(f => `${__dirname}/${f}` !== __filename)
+  .filter(f => `${__dirname}/${f}` !== __filename && f.split('.')[1] === 'js')
   .reduce(
     (acm, file) => ({
       ...acm,
