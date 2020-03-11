@@ -1,5 +1,4 @@
 'use strict';
-
 const fs = require('fs');
 const { getCorrectPath } = require('../utils/generics');
 const { buildInstance } = require('../utils/factory');
@@ -11,13 +10,13 @@ module.exports = (classRelPath, functionalityRelPath) => {
     const buildClassesGroup = (className, classFn) => {
       const { specificFns, defaultInitState } = classFn(fns);
       return {
-        [className]: (id, outterInitState) => {
-          return buildInstance(
+        [className]: (outterInitState, id) =>
+          buildInstance(
             specificFns,
             id,
+            className,
             !outterInitState ? defaultInitState : outterInitState
-          );
-        }
+          )
       };
     };
 
