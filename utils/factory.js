@@ -2,14 +2,14 @@ const { objMap } = require('./generics');
 const { v1: uuid } = require('uuid');
 
 /**************** Instances Factory **************/
-const buildInstance = (functionality, id, initState = {}) => {
+const buildInstance = (functionality, id, className, initState = {}) => {
   let state;
 
   // TODO: Check other uuid versions to improve this
   // uuid v4 autogen makes this +/-75% slower, very bad!
   // uuid v1 autogen makes this +/-38% slower, not bad!
   const _id = !id ? uuid() : id;
-  // console.log({ _id });
+  const _className = className;
 
   // update the initial state
   if (typeof initState !== 'object') {
@@ -29,7 +29,8 @@ const buildInstance = (functionality, id, initState = {}) => {
   const res = {
     info: () => {
       console.group('Info');
-      console.log('_id:', _id);
+      console.log('id:', _id);
+      console.log('className:', _className);
       console.log('state:', state);
       console.groupEnd();
     },
