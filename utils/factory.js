@@ -1,16 +1,22 @@
-const { curry } = require('ramda');
 const { objMap } = require('./generics');
+const { v1: uuid } = require('uuid');
 
 /**************** Instances Factory **************/
-const buildInstance = curry((id, functionality, initState = {}) => {
+const buildInstance = (functionality, id, initState = {}) => {
   let state;
+
+  // TODO: Check other uuid versions to improve this
+  // uuid v4 autogen makes this +/-75% slower, very bad!
+  // uuid v1 autogen makes this +/-38% slower, not bad!
+  const _id = !id ? uuid() : id;
+  // console.log({ _id });
 
   // update the initial state
   if (typeof initState !== 'object') {
     console.warn('Invalid initState, defaulting to empty object');
     initState = {};
   }
-  updateState({ id, ...initState });
+  updateState({ ...initState });
 
   function updateState(newState) {
     // console.log({ oldState: state, newState });
@@ -20,14 +26,23 @@ const buildInstance = curry((id, functionality, initState = {}) => {
     }
   }
 
-  // console.log('functionality', functionality);
-  return objMap(functionality, ([fnName, fn]) => [
-    fnName,
-    (...args) => {
-      console.log(`${fnName}(${args})`);
-      updateState(fn(state)(...args));
-    }
-  ]);
-});
+  const res = {
+    info: () => {
+      console.group('Info');
+      console.log('_id:', _id);
+      console.log('state:', state);
+      console.groupEnd();
+    },
+    getId: () => _id
+  };
+
+  return {
+    ...res,
+    ...objMap(functionality, ([fnName, fn]) => [
+      fnName,
+      (...args) => updateState(fn(state)(...args))
+    ])
+  };
+};
 
 module.exports = { buildInstance };

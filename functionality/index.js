@@ -1,39 +1,28 @@
-const { curry } = require('ramda');
-const { objMap } = require('../utils/generics');
-const i = require('i')();
+const { objMap, getCorrectPath } = require('../utils/generics');
 const fs = require('fs');
+const i = require('i')();
 
 /************ Generic Functionality Groups Factory *************/
-const buildFunctionalityGroup = curry((fnGroupName, fnGroup) =>
+const buildFunctionalityGroup = (fnGroupName, fnGroup) =>
   objMap(fnGroup, ([fnName, fn]) => [
     i.camelize(`${fnName}_${fnGroupName}`, false),
     fn
-  ])
-);
-console.log('mdp', module.parent.parent.path);
+  ]);
 
-module.exports = functionalityLoadingPath =>
-  fs
-    // .readdirSync(__dirname)
-    .readdirSync(functionalityLoadingPath)
-    .filter(
-      f =>
-        // `${__dirname}/${f}` !== __filename &&
-        `${functionalityLoadingPath}/${f}` !== __filename &&
-        f.split('.')[1] === 'js'
-    )
-    .reduce((acm, file) => {
-      // console.log('file', file);
-      // console.log(
-      //   '${functionalityLoadingPath}/${file}',
-      //   `${functionalityLoadingPath}/${file}`
-      // );
-      return {
+module.exports = functionalityRelPath => {
+  const path = getCorrectPath(module, functionalityRelPath, 'functionality');
+
+  return fs
+    .readdirSync(path)
+    .filter(f => `${path}/${f}` !== __filename && f.split('.')[1] === 'js')
+    .reduce(
+      (acm, file) => ({
         ...acm,
-        // ...buildFunctionalityGroup(file.split('.')[0], require(`./${file}`))
         ...buildFunctionalityGroup(
           file.split('.')[0],
-          require(`${functionalityLoadingPath}/${file}`)
+          require(`${path}/${file}`)
         )
-      };
-    }, {});
+      }),
+      {}
+    );
+};

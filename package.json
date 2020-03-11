@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "i": "^0.3.6",
-    "ramda": "^0.27.0"
+    "ramda": "^0.27.0",
+    "uuid": "^7.0.2"
   }
 }

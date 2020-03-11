@@ -1,6 +1,5 @@
 const { buildInstance } = require('./utils/factory');
-const allFunctionality = require('./functionality');
-
+const allFunctionality = require('./functionality')();
 const testTimeInSecs = process.argv[2] || 5;
 
 const start = Date.now();
@@ -18,7 +17,9 @@ let j = 0;
 
 immedRef = setImmediate(function chunk() {
   while (i < 10000) {
-    const agent1 = buildInstance('agent-' + j, allFunctionality, initState);
+    // const agent1 = buildInstance(allFunctionality, 'agent-' + j, initState);
+    // const agent1 = buildInstance(allFunctionality, 'agent-' + j);
+    const agent1 = buildInstance(allFunctionality); // uuid v4 autogen makes it 75% slower, improve it!
     // agent1.openTick(1.23123);
     // agent1.closeTick(1.92314);
     // agent1.openTick(523423);
