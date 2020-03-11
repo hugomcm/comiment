@@ -1,3 +1,4 @@
+'use strict';
 const { objMap, getCorrectPath } = require('../utils/generics');
 const fs = require('fs');
 const i = require('i')();
