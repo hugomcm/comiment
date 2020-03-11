@@ -6,15 +6,15 @@ console.log('--------------------------------------');
 
 const p1 = Person();
 console.log(p1);
-p1.printOrder();
+p1.orderPrint();
 console.log(p1.getId());
 
 const a1 = Animal(null, { carcaca: 1 });
 console.log(a1);
-a1.printOrder();
+a1.orderPrint();
 
 const a2 = Animal();
-a2.printOrder();
+a2.orderPrint();
 
 const a3 = Animal();
-a3.printOrder();
+a3.orderPrint();

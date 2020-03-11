@@ -6,7 +6,7 @@ const i = require('i')();
 /************ Generic Functionality Groups Factory *************/
 const buildFunctionalityGroup = (fnGroupName, fnGroup) =>
   objMap(fnGroup, ([fnName, fn]) => [
-    i.camelize(`${fnName}_${fnGroupName}`, false),
+    i.camelize(`${fnGroupName}_${fnName}`, false),
     fn
   ]);
 

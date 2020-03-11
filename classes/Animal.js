@@ -1,7 +1,7 @@
 module.exports = allFunctionality => {
-  const { printOrder } = allFunctionality;
+  const { orderPrint } = allFunctionality;
   return {
-    specificFns: { printOrder },
+    specificFns: { orderPrint },
     defaultInitState: {
       type: 'Cat',
       idade: 3,

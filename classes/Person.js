@@ -1,7 +1,7 @@
 module.exports = allFunctionality => {
-  const { initOrder, openOrder, closeOrder, printOrder } = allFunctionality;
+  const { orderInit, orderOpen, orderClose, orderPrint } = allFunctionality;
   return {
-    specificFns: { initOrder, openOrder, closeOrder, printOrder },
+    specificFns: { orderInit, orderOpen, orderClose, orderPrint },
     defaultInitState: {
       idade: 10,
       sexo: 'M'
