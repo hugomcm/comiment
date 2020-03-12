@@ -6,16 +6,17 @@ const agent1 = buildInstance(
   null,
   'TradeAgent'
 );
+
 console.log(agent1);
 
-agent1.tick_open(123123);
-agent1.tick_print();
-agent1.tick_open(523423);
-agent1.tick_print();
-agent1.tick_close(1.92319);
-agent1.tick_print();
-agent1.tick_close(1.92314);
-agent1.tick_print();
-agent1.tick_open(1.32367);
-// agent1.getId();
-agent1.info();
+agent1
+  .tick_open(123123)
+  .tick_print()
+  .tick_open(523423)
+  .tick_print()
+  .tick_close(1.92319)
+  .tick_print()
+  .tick_close(1.92314)
+  .tick_print()
+  .tick_open(1.32367)
+  ._info();
