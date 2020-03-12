@@ -1,6 +1,10 @@
 module.exports = {
-  setMinSpeed: state => minSpeedKmh => ({ ...state, minSpeedKmh }),
-  setMaxSpeed: state => maxSpeedKmh => ({ ...state, maxSpeedKmh }),
+  setMinSpeed: state => minSpeedKmh => ({
+    newState: { ...state, minSpeedKmh }
+  }),
+  setMaxSpeed: state => maxSpeedKmh => ({
+    newState: { ...state, maxSpeedKmh }
+  }),
   cross: state => distanceInKm => {
     const { minSpeedKmh, maxSpeedKmh } = state;
 
@@ -14,8 +18,10 @@ module.exports = {
       timeRange: [minTimeToCross, maxTimeToCross]
     };
     return {
-      ...state,
-      lastCross
+      newState: {
+        ...state,
+        lastCross
+      }
     };
   }
 };
