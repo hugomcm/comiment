@@ -1,11 +1,16 @@
 module.exports = allFunctionality => {
-  const { orderPrint } = allFunctionality;
+  const {
+    identification_setName,
+    runner_setMinSpeed,
+    runner_setMaxSpeed,
+    runner_cross
+  } = allFunctionality;
   return {
-    specificFns: { orderPrint },
-    defaultInitState: {
-      type: 'Cat',
-      idade: 3,
-      sexo: 'F'
+    specificFns: {
+      setName: identification_setName,
+      setMinSpeed: runner_setMinSpeed,
+      setMaxSpeed: runner_setMaxSpeed,
+      cross: runner_cross
     }
   };
 };

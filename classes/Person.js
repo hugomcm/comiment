@@ -1,10 +1,9 @@
 module.exports = allFunctionality => {
-  const { orderInit, orderOpen, orderClose, orderPrint } = allFunctionality;
+  const { identification_setName, identification_getName } = allFunctionality;
   return {
-    specificFns: { orderInit, orderOpen, orderClose, orderPrint },
-    defaultInitState: {
-      idade: 10,
-      sexo: 'M'
+    specificFns: {
+      setName: identification_setName,
+      getName: identification_getName
     }
   };
 };
