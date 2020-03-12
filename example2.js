@@ -1,6 +1,11 @@
 const { Animal, Person } = require('./classes')();
 
-const eventHandler = (event, instance) => {
+const onUpdateHandler = (state, fnName, fn, args) => {
+  console.log(`Called: ${fnName}(${args.join(', ')});`);
+  console.log(state);
+};
+
+const onEventHandler = (event, instance) => {
   const { type, payload } = event;
   switch (type) {
     case 'CREATE_PERSON': {
@@ -19,12 +24,9 @@ const eventHandler = (event, instance) => {
 };
 
 const person = Person()
-  ._onUpdate((state, fnName, fn, args) => {
-    console.log(`Called: ${fnName}(${args.join(', ')});`);
-    console.log(state);
-  })
+  ._onUpdate(onUpdateHandler)
   .setName('Bear Grylls')
-  ._onEvent(eventHandler)
+  ._onEvent(onEventHandler)
   ._injectEvent([
     {
       type: 'CREATE_PERSON',
