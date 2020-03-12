@@ -8,15 +8,9 @@ module.exports = (classRelPath, functionalityRelPath) => {
     const path = getCorrectPath(module, classRelPath);
     const fns = require('../functionality')(functionalityRelPath);
     const buildClassesGroup = (className, classFn) => {
-      const { specificFns, defaultInitState } = classFn(fns);
+      const { specificFns } = classFn(fns);
       return {
-        [className]: (outterInitState, id) =>
-          buildInstance(
-            specificFns,
-            id,
-            className,
-            !outterInitState ? defaultInitState : outterInitState
-          )
+        [className]: id => buildInstance(specificFns, id, className)
       };
     };
 
