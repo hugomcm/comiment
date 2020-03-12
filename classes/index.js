@@ -7,12 +7,9 @@ module.exports = (classRelPath, functionalityRelPath) => {
   try {
     const path = getCorrectPath(module, classRelPath);
     const fns = require('../functionality')(functionalityRelPath);
-    const buildClassesGroup = (className, classFn) => {
-      const { specificFns } = classFn(fns);
-      return {
-        [className]: id => buildInstance(specificFns, id, className)
-      };
-    };
+    const buildClassesGroup = (className, classFn) => ({
+      [className]: id => buildInstance(classFn(fns), id, className)
+    });
 
     return fs
       .readdirSync(path)
