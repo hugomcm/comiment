@@ -29,7 +29,11 @@ const getCorrectPath = (executionModule, relPath, defaultDir = 'classes') => {
   return path;
 };
 
+const isObject = variable =>
+  Object.prototype.toString.call(variable) === '[object Object]';
+
 module.exports = {
   objMap,
-  getCorrectPath
+  getCorrectPath,
+  isObject
 };
