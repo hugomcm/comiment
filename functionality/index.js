@@ -1,14 +1,10 @@
 'use strict';
 const { objMap, getCorrectPath } = require('../utils/generics');
 const fs = require('fs');
-const i = require('i')();
 
 /************ Generic Functionality Groups Factory *************/
 const buildFunctionalityGroup = (fnGroupName, fnGroup) =>
-  objMap(fnGroup, ([fnName, fn]) => [
-    i.camelize(`${fnGroupName}_${fnName}`, false),
-    fn
-  ]);
+  objMap(fnGroup, ([fnName, fn]) => [`${fnGroupName}_${fnName}`, fn]);
 
 module.exports = functionalityRelPath => {
   const path = getCorrectPath(module, functionalityRelPath, 'functionality');
