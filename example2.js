@@ -1,12 +1,17 @@
 const { Animal, Person } = require('./classes')();
 const cecil = Animal();
+const simba = Animal();
 
-// TODO: Make it possible to chain operations on an instance
-// const cecil = Animal().setName();
-cecil.setName('Cecil');
+simba
+  .setName('Simba')
+  .setMinSpeed(10)
+  .info();
 
-cecil.setMinSpeed(9);
-cecil.setMaxSpeed(40);
-cecil.cross(30);
-cecil.info();
-// console.log(state);
+cecil
+  .setName('Cecil')
+  .setMinSpeed(9)
+  .setMaxSpeed(40)
+  .cross(30)
+  .info();
+
+// console.log(simba, cecil);

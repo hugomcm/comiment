@@ -26,24 +26,30 @@ const buildInstance = (functionality, id, className, initState = {}) => {
     }
   }
 
-  const res = {
-    info: () => {
+  const builtInFns = {
+    info: state => () => {
       console.group('Info');
       console.log('id:', _id);
       console.log('className:', _className);
       console.log('state:', state);
       console.groupEnd();
     },
-    getId: () => _id
+    getId: state => () => _id
   };
 
-  return {
-    ...res,
+  functionality = { ...builtInFns, ...functionality };
+
+  const thisInstance = {
     ...objMap(functionality, ([fnName, fn]) => [
       fnName,
-      (...args) => updateState(fn(state)(...args))
+      (...args) => {
+        updateState(fn(state)(...args));
+        return thisInstance;
+      }
     ])
   };
+
+  return thisInstance;
 };
 
 module.exports = { buildInstance };
