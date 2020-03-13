@@ -8,10 +8,10 @@ const onUpdateHandler = (state, fnName, fn, args) => {
 const onEventHandler = (event, instance) => {
   const { type, payload } = event;
   switch (type) {
-    case 'CREATE_PERSON': {
+    case 'UPDATE_PERSON': {
       instance
         .setName(`${payload.firstName} ${payload.lastName}`)
-        .setBirthDate(payload.birthDate);
+        .setBirthDate(payload.birthDateUTS);
       break;
     }
     case 'ADD_SKILLS': {
@@ -29,34 +29,35 @@ const person = Person()
   ._onEvent(onEventHandler)
   ._injectEvent([
     {
-      type: 'CREATE_PERSON',
+      type: 'UPDATE_PERSON',
       payload: {
         firstName: 'Hazen',
         lastName: 'Audel',
-        birthDate: 128304000000
+        birthDateUTS: 128304000000
+      }
+    },
+    {
+      type: 'ADD_SKILLS',
+      payload: {
+        skills: [
+          'Make fire with sticks',
+          'Build a shelter',
+          'Drink pee',
+          'Rappel',
+          'Sky diving'
+        ]
       }
     }
   ])
   ._injectEvent({
-    type: 'CREATE_PERSON',
+    type: 'UPDATE_PERSON',
     payload: {
       firstName: 'Ed',
       lastName: 'Stafford',
-      birthDate: 128304000002
+      birthDateUTS: 128304000002
     }
   })
-  ._injectEvent({
-    type: 'ADD_SKILLS',
-    payload: {
-      skills: [
-        'Make fire with sticks',
-        'Build a shelter',
-        'Drink pee',
-        'Rappel',
-        'Sky diving'
-      ]
-    }
-  })
+  ._injectEvent()
   .setMinSpeed(10)
   .setMaxSpeed(30)
 
