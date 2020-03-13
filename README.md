@@ -88,7 +88,6 @@ const person = Person()
       birthDateUTS: 128304000002
     }
   })
-  ._injectEvent()
   .setMinSpeed(10)
   .setMaxSpeed(30)
 
@@ -173,7 +172,7 @@ module.exports = {
 
 ### Animal
 
-Note: The files **Animal.js** and **Person.js** are automatically loaded from the package if there is **'./classes/'** on the application directory
+Note: The files **Animal.js** and **Person.js** are automatically loaded from the package if there is no **'./classes/'** on the application directory
 
 #### file: ./classes/Animal.js
 
