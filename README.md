@@ -25,7 +25,7 @@ Concepts such as Composition over Inheritance, Immutability and Events together 
  * The directories need to be created on the application root dir:
  *    ./classes/
  *    ./functionality/
- * if they doesn't exist there, it'll falldown to the package directories:
+ * if they don't exist there, it'll falldown to the package directories:
  *    ./node_modules/composition/classes/
  *    ./node_modules/composition/functionality/
  ***/
