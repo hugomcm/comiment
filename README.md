@@ -1,16 +1,12 @@
-# Composition
+# Comiment
 
-Composition over Inheritance
+Comiment joins concepts such as Composition over Inheritance, Immutability and Events together on a package.
 
 ## Install
 
 ```
 npm i https://github.com/hugomcm/composition.git
 ```
-
-## Description
-
-Concepts such as Composition over Inheritance, Immutability and Events together on a package.
 
 ## Example
 
