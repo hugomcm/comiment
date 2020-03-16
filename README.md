@@ -1,6 +1,6 @@
 # Comiment
 
-Comiment joins concepts such as Composition over Inheritance, Immutability and Events together on a package.
+A module that joins concepts such as Composition over Inheritance, Immutability and Events together.
 
 ## Install
 
