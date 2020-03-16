@@ -20,9 +20,11 @@ const getCorrectPath = (executionModule, relPath, defaultDir = 'classes') => {
   let path = !!relPath ? `${appPath}/${relPath}` : `${appPath}/${defaultDir}`;
 
   if (!hasFiles(path)) {
-    console.warn(
-      `Path '${path}' does not exist.\nFalling back to example files on '${modulePath}'`
-    );
+    console.group('*** WARNING ***');
+    console.warn(`Path '${path}' does not exist.`);
+    console.warn(`Falling back to example files on '${modulePath}'`);
+    console.groupEnd();
+    console.warn();
     path = modulePath;
   }
 
