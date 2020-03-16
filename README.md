@@ -5,7 +5,7 @@ A module that joins concepts such as Composition over Inheritance, Immutability 
 ## Install
 
 ```
-npm i https://github.com/hugomcm/composition.git
+npm i https://github.com/hugomcm/comiment.git
 ```
 
 ## Example
@@ -22,10 +22,10 @@ npm i https://github.com/hugomcm/composition.git
  *    ./classes/
  *    ./functionality/
  * if they don't exist there, it'll falldown to the package directories:
- *    ./node_modules/composition/classes/
- *    ./node_modules/composition/functionality/
+ *    ./node_modules/comiment/classes/
+ *    ./node_modules/comiment/functionality/
  ***/
-const { Animal, Person } = require('composition')('classes', 'functionality');
+const { Animal, Person } = require('comiment')('classes', 'functionality');
 
 const onUpdateHandler = (state, fnName, fn, args) => {
   console.log(`Called: ${fnName}(${args.join(', ')});`);
