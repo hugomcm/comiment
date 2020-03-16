@@ -35,13 +35,13 @@ const onUpdateHandler = (state, fnName, fn, args) => {
 const onEventHandler = (event, instance) => {
   const { type, payload } = event;
   switch (type) {
-    case 'UPDATE_PERSON': {
+    case 'PERSON_UPDATE_REQUESTED': {
       instance
         .setName(`${payload.firstName} ${payload.lastName}`)
         .setBirthDate(payload.birthDateUTS);
       break;
     }
-    case 'ADD_SKILLS': {
+    case 'ADD_SKILLS_REQUESTED': {
       instance.addSkill(...payload.skills);
       break;
     }
@@ -56,7 +56,7 @@ const person = Person()
   ._onEvent(onEventHandler)
   ._injectEvent([
     {
-      type: 'UPDATE_PERSON',
+      type: 'PERSON_UPDATE_REQUESTED',
       payload: {
         firstName: 'Hazen',
         lastName: 'Audel',
@@ -64,7 +64,7 @@ const person = Person()
       }
     },
     {
-      type: 'ADD_SKILLS',
+      type: 'ADD_SKILLS_REQUESTED',
       payload: {
         skills: [
           'Make fire with sticks',
@@ -77,7 +77,7 @@ const person = Person()
     }
   ])
   ._injectEvent({
-    type: 'UPDATE_PERSON',
+    type: 'PERSON_UPDATE_REQUESTED',
     payload: {
       firstName: 'Ed',
       lastName: 'Stafford',
