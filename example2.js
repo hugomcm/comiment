@@ -1,4 +1,14 @@
-const { Animal, Person } = require('./classes')();
+/***
+ * If the args 'classes' and 'helpers' aren't passed, the package will default to those names.
+ *
+ * The directories need to be created on the application root dir:
+ *    ./classes/
+ *    ./helpers/
+ * if they don't exist there, it'll falldown to the package directories:
+ *    ./node_modules/comiment/classes/
+ *    ./node_modules/comiment/helpers/
+ ***/
+const { Animal, Person } = require('./index')('classes', 'helpers');
 
 const onUpdateHandler = (state, fnName, fn, args) => {
   console.log(`Called: ${fnName}(${args.join(', ')});`);
@@ -57,12 +67,11 @@ const person = Person()
       birthDateUTS: 128304000002
     }
   })
-  ._injectEvent()
   .setMinSpeed(10)
   .setMaxSpeed(30)
 
   // Different function name between Person and Animal, but same function under the wood.
-  // ./functionality/runner.js > cross
+  // ./helpers/runner.js > cross
   // ./classes/Person.js > crossOver: runner_cross
   .crossOver(120)
 
@@ -78,7 +87,7 @@ Animal()
   .setMaxSpeed(50)
 
   // Different function name between Person and Animal, but same function under the wood.
-  // ./functionality/runner.js > cross
+  // ./helpers/runner.js > cross
   // ./classes/Animal.js > migrate: runner_cross
   .migrate(30)
   ._info();

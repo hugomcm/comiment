@@ -3,10 +3,10 @@ const fs = require('fs');
 const { getCorrectPath } = require('../utils/generics');
 const { buildInstance } = require('../utils/factory');
 
-module.exports = (classRelPath, functionalityRelPath) => {
+module.exports = (classRelPath, helpersRelPath) => {
   try {
     const path = getCorrectPath(module, classRelPath);
-    const fns = require('../functionality')(functionalityRelPath);
+    const fns = require('../helpers')(helpersRelPath);
     const buildClassesGroup = (className, classFn) => ({
       [className]: id => buildInstance(classFn(fns), id, className)
     });

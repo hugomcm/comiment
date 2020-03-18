@@ -16,16 +16,16 @@ npm i https://github.com/hugomcm/comiment.git
 
 ```js
 /***
- * If the args 'classes' and 'functionality' aren't passed, the package will default to those names.
+ * If the args 'classes' and 'helpers' aren't passed, the package will default to those names.
  *
  * The directories need to be created on the application root dir:
  *    ./classes/
- *    ./functionality/
+ *    ./helpers/
  * if they don't exist there, it'll falldown to the package directories:
  *    ./node_modules/comiment/classes/
- *    ./node_modules/comiment/functionality/
+ *    ./node_modules/comiment/helpers/
  ***/
-const { Animal, Person } = require('comiment')('classes', 'functionality');
+const { Animal, Person } = require('comiment')('classes', 'helpers');
 
 const onUpdateHandler = (state, fnName, fn, args) => {
   console.log(`Called: ${fnName}(${args.join(', ')});`);
@@ -88,7 +88,7 @@ const person = Person()
   .setMaxSpeed(30)
 
   // Different function name between Person and Animal, but same function under the wood.
-  // ./functionality/runner.js > cross
+  // ./helpers/runner.js > cross
   // ./classes/Person.js > crossOver: runner_cross
   .crossOver(120)
 
@@ -104,19 +104,20 @@ Animal()
   .setMaxSpeed(50)
 
   // Different function name between Person and Animal, but same function under the wood.
-  // ./functionality/runner.js > cross
+  // ./helpers/runner.js > cross
   // ./classes/Animal.js > migrate: runner_cross
   .migrate(30)
   ._info();
 ```
 
-### Functionality
+### Helpers
 
-Note: The files **runner.js** and **identification.js** are automatically loaded from the package if there is no **'./functionality'** on the application directory
+Note: The files **runner.js** and **identification.js** are automatically loaded from the package if there is no **'./helpers'** on the application directory
 
-#### file: ./functionality/runner.js
+#### file: ./helpers/runner.js
 
 ```js
+// Only Pure Functions Allowed
 module.exports = {
   setMinSpeed: state => minSpeedKmh => ({
     newState: { ...state, minSpeedKmh }
@@ -146,22 +147,12 @@ module.exports = {
 };
 ```
 
-#### file: ./functionality/identification.js
+#### file: ./helpers/identification.js
 
 ```js
 module.exports = {
-  setName: state => name => ({ newState: { ...state, name } }),
-  getName: state => () => ({ return: state.name }),
-  setBirthDate: state => birthDateUTS => ({
-    newState: { ...state, birthDate: birthDateUTS }
-  }),
-  addSkill: state => (...newSkills) => {
-    const mixedSkills = !state.skills
-      ? [...newSkills]
-      : [...state.skills, ...newSkills];
-    return {
-      newState: { ...state, skills: mixedSkills }
-    };
+  updateSkills: (currentSkills, ...newSkills) => {
+    return !currentSkills ? [...newSkills] : [...currentSkills, ...newSkills];
   }
 };
 ```
@@ -173,15 +164,14 @@ Note: The files **Animal.js** and **Person.js** are automatically loaded from th
 #### file: ./classes/Animal.js
 
 ```js
+// Only Pure Functions Allowed
 module.exports = ({
-  identification_setName,
-  identification_getName,
   runner_setMinSpeed,
   runner_setMaxSpeed,
   runner_cross
 }) => ({
-  setName: identification_setName,
-  getName: identification_getName,
+  setName: state => name => ({ newState: { ...state, name } }),
+  getName: state => () => ({ return: state.name }),
   setMinSpeed: runner_setMinSpeed,
   setMaxSpeed: runner_setMaxSpeed,
   migrate: runner_cross
@@ -193,21 +183,26 @@ module.exports = ({
 #### file: ./classes/Person.js
 
 ```js
+// Only Pure Functions Allowed
 module.exports = ({
-  identification_setName,
-  identification_getName,
-  identification_setBirthDate,
-  identification_addSkill,
+  identification_updateSkills,
   runner_setMinSpeed,
   runner_setMaxSpeed,
   runner_cross
 }) => ({
-  setName: identification_setName,
-  getName: identification_getName,
-  setBirthDate: identification_setBirthDate,
+  setName: state => name => ({ newState: { ...state, name } }),
+  getName: state => () => ({ return: state.name }),
+  setBirthDate: state => birthDateUTS => ({
+    newState: { ...state, birthDate: birthDateUTS }
+  }),
   setMinSpeed: runner_setMinSpeed,
   setMaxSpeed: runner_setMaxSpeed,
   crossOver: runner_cross,
-  addSkill: identification_addSkill
+  addSkill: state => (...skills) => ({
+    newState: {
+      ...state,
+      skills: identification_updateSkills(state.skills, ...skills)
+    }
+  })
 });
 ```

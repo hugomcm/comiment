@@ -1,17 +1,22 @@
+// Only Pure Functions Allowed
 module.exports = ({
-  identification_setName,
-  identification_getName,
-  identification_setBirthDate,
-  identification_addSkill,
+  identification_updateSkills,
   runner_setMinSpeed,
   runner_setMaxSpeed,
   runner_cross
 }) => ({
-  setName: identification_setName,
-  getName: identification_getName,
-  setBirthDate: identification_setBirthDate,
+  setName: state => name => ({ newState: { ...state, name } }),
+  getName: state => () => ({ return: state.name }),
+  setBirthDate: state => birthDateUTS => ({
+    newState: { ...state, birthDate: birthDateUTS }
+  }),
   setMinSpeed: runner_setMinSpeed,
   setMaxSpeed: runner_setMaxSpeed,
   crossOver: runner_cross,
-  addSkill: identification_addSkill
+  addSkill: state => (...skills) => ({
+    newState: {
+      ...state,
+      skills: identification_updateSkills(state.skills, ...skills)
+    }
+  })
 });

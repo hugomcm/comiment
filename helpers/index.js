@@ -2,12 +2,12 @@
 const { objMap, getCorrectPath } = require('../utils/generics');
 const fs = require('fs');
 
-/************ Generic Functionality Groups Factory *************/
-const buildFunctionalityGroup = (fnGroupName, fnGroup) =>
+/************ Generic helpers Groups Factory *************/
+const buildHelpersGroup = (fnGroupName, fnGroup) =>
   objMap(fnGroup, ([fnName, fn]) => [`${fnGroupName}_${fnName}`, fn]);
 
-module.exports = functionalityRelPath => {
-  const path = getCorrectPath(module, functionalityRelPath, 'functionality');
+module.exports = helpersRelPath => {
+  const path = getCorrectPath(module, helpersRelPath, 'helpers');
 
   return fs
     .readdirSync(path)
@@ -15,10 +15,7 @@ module.exports = functionalityRelPath => {
     .reduce(
       (acm, file) => ({
         ...acm,
-        ...buildFunctionalityGroup(
-          file.split('.')[0],
-          require(`${path}/${file}`)
-        )
+        ...buildHelpersGroup(file.split('.')[0], require(`${path}/${file}`))
       }),
       {}
     );

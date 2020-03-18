@@ -1,3 +1,4 @@
+// Only Pure Functions Allowed
 module.exports = {
   setMinSpeed: state => minSpeedKmh => ({
     newState: { ...state, minSpeedKmh }

@@ -1,5 +1,5 @@
 const { buildInstance } = require('./utils/factory');
-const { tick_open, tick_close, tick_print } = require('./functionality')();
+const { tick_open, tick_close, tick_print } = require('./helpers')();
 const testTimeInSecs = process.argv[2] || 5;
 
 const start = Date.now();
