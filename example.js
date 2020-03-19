@@ -1,8 +1,18 @@
 const { buildInstance } = require('./utils/factory');
-const { tick_open, tick_close, tick_print } = require('./helpers')();
+const {
+  identification_updateSkills,
+  runner_setMinSpeed,
+  runner_setMaxSpeed,
+  runner_cross
+} = require('./helpers')();
 
 const agent1 = buildInstance(
-  { tick_open, tick_close, tick_print },
+  {
+    updateSkills: identification_updateSkills,
+    setMinSpeed: runner_setMinSpeed,
+    setMaxSpeed: runner_setMaxSpeed,
+    cross: runner_cross
+  },
   null,
   'TradeAgent'
 );
@@ -10,13 +20,9 @@ const agent1 = buildInstance(
 console.log(agent1);
 
 agent1
-  .tick_open(123123)
-  .tick_print()
-  .tick_open(523423)
-  .tick_print()
-  .tick_close(1.92319)
-  .tick_print()
-  .tick_close(1.92314)
-  .tick_print()
-  .tick_open(1.32367)
+  .setMaxSpeed(99)
+  ._info()
+  .setMinSpeed(23)
+  ._info()
+  .cross(10)
   ._info();

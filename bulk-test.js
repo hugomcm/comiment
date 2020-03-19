@@ -1,5 +1,10 @@
 const { buildInstance } = require('./utils/factory');
-const { tick_open, tick_close, tick_print } = require('./helpers')();
+const {
+  identification_updateSkills,
+  runner_setMinSpeed,
+  runner_setMaxSpeed,
+  runner_cross
+} = require('./helpers')();
 const testTimeInSecs = process.argv[2] || 5;
 
 const start = Date.now();
@@ -12,8 +17,15 @@ let agent1;
 immedRef = setImmediate(function chunk() {
   while (i < 10000) {
     // const agent1 = buildInstance({ tick_open, tick_close, tick_print }, 'agent-' + j, initState);
-    // const agent1 = buildInstance({ tick_open, tick_close, tick_print }, 'agent-' + j);
-    agent1 = buildInstance({ tick_open, tick_close, tick_print }); // uuid v4 autogen makes it 75% slower, improve it!
+    const agent1 = buildInstance(
+      { identification_updateSkills, runner_setMinSpeed, runner_setMaxSpeed },
+      'agent-' + j
+    );
+    // agent1 = buildInstance({
+    //   identification_updateSkills,
+    //   runner_setMinSpeed,
+    //   runner_setMaxSpeed
+    // }); // uuid v4 autogen makes it 75% slower, improve it!
     // agent1.tick_open(1.23123);
     // agent1.tick_close(1.92314);
     // agent1.tick_open(523423);
